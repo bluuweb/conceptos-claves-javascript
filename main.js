@@ -5,7 +5,7 @@ const games = [
     name: 'Super Mario Bros',
     year: 1985,
     genre: 'Platform',
-    stock: 10,
+    stock: 0,
   },
   {
     name: 'The Legend of Zelda',
@@ -25,10 +25,10 @@ const [gameOne, gameTwo, gameThree] = games;
 
 const btnClass = (stock) => stock > 0 ? 'btn-primary' : 'btn-danger disabled';
 
-function Card({name, year, genre}){
+function Card({name, year, genre, stock}){
 
   return `
-  <div class="card" style="width: 18rem;">
+  <div class="card mb-2">
   <div class="card-body">
       <h5 class="card-title">${name.toUpperCase()}</h5>
       <p class="card-text">${year} - ${genre}</p>
