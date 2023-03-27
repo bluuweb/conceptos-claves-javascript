@@ -1,32 +1,43 @@
+const app = document.getElementById("app");
+const spinner = document.getElementById("spinner");
 
-const app = document.getElementById('app');
-const games = [
-  {
-    name: 'Super Mario Bros',
-    year: 1985,
-    genre: 'Platform',
-    stock: 0,
-  },
-  {
-    name: 'The Legend of Zelda',
-    year: 1986,
-    genre: 'Adventure',
-    stock: 5,
-  },
-  {
-    name: 'Tetris',
-    year: 1984,
-    genre: 'Puzzle',
-    stock: 15,
+spinner.innerHTML = `
+<div class="d-flex align-items-center">
+  <strong>Loading...</strong>
+  <div class="spinner-border ms-auto" role="status" aria-hidden="true"></div>
+</div>
+`;
+
+const fakePromise = (msg) =>
+  new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(msg);
+    }, 2000);
+  });
+
+const getGames = async () => {
+  try {
+    const hola = await fakePromise("Hola mundo");
+    console.log(hola);
+    const res = await fetch("data.json");
+    if (!res.ok) {
+      throw { ok: false, msg: "error 404" };
+    }
+    const data = await res.json();
+    data.forEach((item) => {
+      app.innerHTML += Card(item);
+    });
+  } catch (error) {
+    console.log(error);
+  } finally {
+    spinner.innerHTML = "";
   }
-]
+};
+getGames();
 
-const [gameOne, gameTwo, gameThree] = games;
+const btnClass = (stock) => (stock > 0 ? "btn-primary" : "btn-danger disabled");
 
-const btnClass = (stock) => stock > 0 ? 'btn-primary' : 'btn-danger disabled';
-
-function Card({name, year, genre, stock}){
-
+function Card({ name, year, genre, stock }) {
   return `
   <div class="card mb-2">
   <div class="card-body">
@@ -35,9 +46,5 @@ function Card({name, year, genre, stock}){
       <a href="#" class="btn ${btnClass(stock)}">Go somewhere</a>
     </div>
   </div>
-  `
+  `;
 }
-
-app.innerHTML += Card(gameOne);
-app.innerHTML += Card(gameTwo);
-app.innerHTML += Card(gameThree);

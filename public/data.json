@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Super Mario Bros",
+    "year": 1985,
+    "genre": "Platform",
+    "stock": 0
+  },
+  {
+    "name": "The Legend of Zelda",
+    "year": 1986,
+    "genre": "Adventure",
+    "stock": 5
+  },
+  {
+    "name": "Tetris",
+    "year": 1984,
+    "genre": "Puzzle",
+    "stock": 15
+  }
+]
